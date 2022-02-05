@@ -1,0 +1,8 @@
+
+SELECT distinct ?item  ?itemLabel ?social_media_followers  
+WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P361 wd:Q854218 .
+  ?item wdt:P8687 ?social_media_followers .
+} 
+Order by desc(?social_media_followers)

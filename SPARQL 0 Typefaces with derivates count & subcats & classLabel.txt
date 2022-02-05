@@ -1,0 +1,18 @@
+#Typefaces with derivaties count
+#This does get sub-items! Looks like maybe some double counting though.
+#Note: check out classLabel and class!!!
+SELECT distinct ?typeface ?typefaceLabel ?classLabel (COUNT(?derivaties) AS ?count)
+WHERE
+{
+  ?typeface wdt:P31/wdt:P279* wd:Q17451.
+  ?typeface wdt:P4969 ?derivaties.
+  
+  Optional {?typeface wdt:P1878 ?class }
+  
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+  
+}
+GROUP BY ?typeface ?typefaceLabel ?classLabel
+ORDER BY DESC(?count) ?typeface
+
+

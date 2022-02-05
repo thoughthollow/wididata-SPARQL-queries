@@ -1,0 +1,15 @@
+#NGOs with URLs
+SELECT DISTINCT ?item ?itemLabel ?website
+WHERE
+{
+  ?item wdt:P452 wd:Q107607934 .
+  
+  Optional {?item wdt:P856 ?website }
+
+#  FILTER(CONTAINS(LCASE(?itemLabel), ""))
+#  FILTER (LANG(?itemLabel)="en")
+
+  
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+
+}

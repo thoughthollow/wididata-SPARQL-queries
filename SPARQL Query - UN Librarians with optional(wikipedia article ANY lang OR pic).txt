@@ -1,0 +1,21 @@
+#UN Librarians with optional (wikipedia article ANY lang, OR pic)
+SELECT distinct ?person ?personLabel ?_article ?pic 
+WHERE 
+{
+  ?person wdt:P31 wd:Q5 ;
+          wdt:P106 wd:Q182436 ;
+          wdt:P108 wd:Q1065 .
+
+   
+  OPTIONAL {
+    ?_article schema:about ?person.
+    ?_article schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
+    #?person wdt:P18 ?pic.
+  }
+  
+    OPTIONAL {
+    ?person wdt:P18 ?pic.
+  }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+}

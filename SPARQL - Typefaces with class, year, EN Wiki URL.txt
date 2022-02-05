@@ -1,0 +1,19 @@
+#Typefaces with derivaties count
+#This does get sub-items! Looks like maybe some double counting though.
+SELECT distinct ?typeface ?typefaceLabel ?classLabel ?article ?inception
+WHERE
+{
+  ?typeface wdt:P31/wdt:P279* wd:Q17451.
+    ?article schema:about ?typeface.
+    ?article schema:isPartOf <https://en.wikipedia.org/> .
+  
+  Optional {?typeface wdt:P1878 ?class .
+            ?typeface wdt:P571 ?inception .
+  }
+  
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+  
+}
+ORDER BY asc(?typefaceLabel)
+
+

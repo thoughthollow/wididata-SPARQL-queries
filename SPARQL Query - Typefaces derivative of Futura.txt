@@ -1,0 +1,13 @@
+Select distinct ?item ?itemLabel ?article ?pic Where {
+  ?item wdt:P144 wd:Q247686 .
+  ?item wdt:P31 wd:Q864011 .
+        
+
+          Optional
+        {
+        ?item wdt:P18 ?pic
+          }
+  
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,fr,es,de" }  #Service to resolve labels in (fallback) languages: automatic user language, English, French, Spanish, German.
+
+} LIMIT 1000

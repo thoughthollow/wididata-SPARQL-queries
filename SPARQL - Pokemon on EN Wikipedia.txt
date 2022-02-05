@@ -1,0 +1,18 @@
+#Pokémon!
+
+# Gotta catch 'em all
+SELECT DISTINCT ?pokemon ?pokemonLabel ?pokedexNumber ?article
+WHERE
+{
+    ?pokemon wdt:P31/wdt:P279* wd:Q3966183 .
+    ?pokemon p:P1685 ?statement.
+    ?statement ps:P1685 ?pokedexNumber;
+              pq:P972 wd:Q20005020.
+  
+    ?article schema:about ?pokemon.
+    ?article schema:isPartOf <https://en.wikipedia.org/> .
+  
+    FILTER (! wikibase:isSomeValue(?pokedexNumber) )
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY (?pokedexNumber)

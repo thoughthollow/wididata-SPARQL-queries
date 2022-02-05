@@ -1,0 +1,12 @@
+Select distinct ?project ?projectLabel ?article
+where
+{
+  ?project wdt:P31 wd:Q170584.
+  ?NGO wdt:P31 wd:Q79913 .
+  
+    ?article schema:about ?project.
+    ?article schema:isPartOf <https://en.wikipedia.org/> .
+  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+  }
+Order by desc(?projectLabel) LIMIT 1000

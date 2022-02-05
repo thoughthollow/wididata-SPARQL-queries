@@ -1,0 +1,11 @@
+#Typefaces with derivaties count
+#This doesn't get sub-items! Only things that are directly an instance of "typeface"
+SELECT ?typeface (COUNT(?derivaties) AS ?count)
+WHERE
+{
+  ?typeface wdt:P31 wd:Q17451.
+  ?typeface wdt:P4969 ?derivaties.
+
+}
+GROUP BY ?typeface 
+ORDER BY DESC(?count) ?typeface

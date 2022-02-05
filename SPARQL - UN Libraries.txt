@@ -1,0 +1,12 @@
+Select distinct ?item ?itemLabel ?article
+where
+{
+  ?item wdt:P31 wd:Q7075.
+  ?item wdt:P361 wd:Q1065.
+  
+    ?article schema:about ?item.
+    ?article schema:isPartOf <https://en.wikipedia.org/> .
+  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+  }
+Order by asc(?itemLabel) 
