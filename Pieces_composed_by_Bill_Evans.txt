@@ -1,0 +1,9 @@
+#Pieces composed by Bill Evans
+SELECT ?song ?songLabel ?genreLabel ?publicationdate WHERE {
+?song wdt:P31/wdt:P279* wd:Q105543609 ;
+   wdt:P86 wd:Q208205 .
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+
+  OPTIONAL { ?song  wdt:P136 ?genre .}
+  OPTIONAL { ?song  wdt:P577 ?publicationdate. }
+  }
