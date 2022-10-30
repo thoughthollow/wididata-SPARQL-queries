@@ -1,11 +1,12 @@
 #title: Politicans who are female by height
-SELECT ?politician ?height ?politician_label # ?image
+SELECT ?politician ?politicianLabel ?height ?unitLabel # ?image
 WHERE
 {
   ?politician wdt:P106 wd:Q82955 .    # find items that have "occupation (P106): politician (Q82955)"
-  ?politician wdt:P2048 ?height .     # with a height listed
+  ?politician p:P2048/psn:P2048/wikibase:quantityAmount ?height .
+  ?politician p:P2048/psn:P2048/wikibase:quantityUnit ?unit .
   ?politician wdt:P21 wd:Q6581072 .   # who are female
  # ?politician wdt:P18 ?image . # where an image is available
-  OPTIONAL {?politician rdfs:label ?politician_label FILTER (lang(?politician_label) = "en") .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
 }
 ORDER BY DESC (?height)
