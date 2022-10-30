@@ -1,0 +1,11 @@
+#title: Politicans who are female by height
+SELECT ?politician ?height ?politician_label # ?image
+WHERE
+{
+  ?politician wdt:P106 wd:Q82955 .    # find items that have "occupation (P106): politician (Q82955)"
+  ?politician wdt:P2048 ?height .     # with a height listed
+  ?politician wdt:P21 wd:Q6581072 .   # who are female
+ # ?politician wdt:P18 ?image . # where an image is available
+  OPTIONAL {?politician rdfs:label ?politician_label FILTER (lang(?politician_label) = "en") .}
+}
+ORDER BY DESC (?height)
