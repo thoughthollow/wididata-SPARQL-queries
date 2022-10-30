@@ -1,0 +1,65 @@
+#title: Occupations in Wikidata
+SELECT ?itemLabel
+WHERE {
+  ?item wdt:P31 wd:Q12737077 .
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+
+}
+
+
+---
+#title: Occupations of Wikidata humans of Australia
+SELECT ?occupationLabel (COUNT(?human) AS ?count)
+WHERE {
+  ?human wdt:P31 wd:Q5. # Wiki data humans...
+  ?human wdt:P27 wd:Q408. # of Australia.
+  ?human wdt:P106 ?occupation . # Get their occupation for the count function
+
+
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+
+}
+GROUP BY ?occupationLabel
+ORDER BY (?count)
+
+
+---
+#title: Count of Wikidata humans by Occupation where their height is over 180
+SELECT ?occupationLabel (COUNT(?human) AS ?count) (AVG(?height) as ?avghgt)
+WHERE {
+  ?human wdt:P31 wd:Q5.
+  ?human wdt:P2048 ?height.
+  FILTER(?height > "180"^^xsd:decimal).
+  ?human wdt:P106 ?occupation .
+
+
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+
+}
+GROUP BY ?occupationLabel
+ORDER BY (?count)
+
+
+---
+#title: Count of Wikidata humans by Occupation where their height is between 170-180
+SELECT ?occupationLabel ?sexLabel (COUNT(?human) AS ?count) (AVG(?height) as ?avghgt)
+WHERE {
+  ?human wdt:P31 wd:Q5.
+  ?human wdt:P21 ?sex.
+  ?human wdt:P2048 ?height.
+  FILTER(?height >= "170"^^xsd:decimal && ?height < "180"^^xsd:decimal).
+  ?human wdt:P106 ?occupation .
+
+
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+
+}
+GROUP BY ?occupationLabel ?sexLabel
+ORDER BY  DESC(?count)
+
+
+---
