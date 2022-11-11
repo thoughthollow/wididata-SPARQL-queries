@@ -1,0 +1,21 @@
+#Books or literary works in Russian by authors born in Ukraine
+SELECT ?item ?authorLabel ?PoBLabel ?date ?Title ?coord ?placeLabel ?langLabel
+WHERE
+{
+  VALUES ?type {wd:Q571 wd:Q7725634}  # book or literary work
+  ?item wdt:P31 ?type .
+  ?item wdt:P50 ?author .
+  ?author wdt:P19/wdt:P131* wd:Q212. # Place of birth located in entity "Ukraine"
+  ?author wdt:P19 ?PoB.
+  ?item wdt:P577 ?date.
+#  ?item wdt:P577 ?date FILTER (?date < "1830-01-01T00:00:00Z"^^xsd:dateTime) . # date with criteria
+  ?item rdfs:label ?Title FILTER (lang(?Title) = "en").
+  ?item wdt:P407 ?lang.
+  ?item wdt:P407 wd:Q7737.
+
+  OPTIONAL {
+    ?item wdt:P291 ?place .  # publication place is ?place
+    ?place wdt:P625 ?coord.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+}
